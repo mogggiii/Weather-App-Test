@@ -19,7 +19,7 @@ class HomeTableHeaderView: UIView {
     view.layer.shadowColor = UIColor(red: 59 / 255, green: 105 / 255, blue: 222 / 255, alpha: 1).cgColor
     view.layer.shadowOffset = CGSize(width: 0, height: 10)
     view.layer.shadowRadius = 12
-    view.layer.shadowOpacity = 0.6
+    view.layer.shadowOpacity = 0.4
     return view
   }()
   
