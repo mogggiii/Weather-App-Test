@@ -8,5 +8,5 @@
 import Foundation
 
 protocol HomeConfiguratorProtocol {
-  func configure(with viewController: ViewController)
+  func configure(with viewController: HomeViewController)
 }

@@ -59,7 +59,6 @@ class HourlyCollectionViewCell: UICollectionViewCell {
   private func setupConstraints() {
     let stackView = UIStackView(arrangedSubviews: [weatherImageView, temperatureLabel, timeLabel])
     stackView.translatesAutoresizingMaskIntoConstraints = false
-//    stackView.spacing = 4
     stackView.alignment = .center
     stackView.axis = .vertical
     stackView.distribution = .fill

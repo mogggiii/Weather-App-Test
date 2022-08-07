@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class HomeViewController: UIViewController {
   
   private lazy var homeCustomNavBar = HomeCustomNavBar()
   let headerView = HomeTableHeaderView()

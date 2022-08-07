@@ -25,6 +25,7 @@ class CollectionView: UICollectionView {
   
   private func registerCells() {
     register(HourlyCell.self, forCellWithReuseIdentifier: HourlyCell.reuseId)
+    register(DailyCell.self, forCellWithReuseIdentifier: DailyCell.reuseId)
     register(SectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SectionHeader.reuseId)
   }
   
@@ -36,13 +37,23 @@ extension CollectionView: UICollectionViewDataSource {
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HourlyCell.reuseId, for: indexPath) as! HourlyCell
-    return cell
+    switch indexPath.section {
+    case 0:
+      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HourlyCell.reuseId, for: indexPath) as! HourlyCell
+      return cell
+    case 1:
+      let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DailyCell.reuseId, for: indexPath) as! DailyCell
+      return cell
+    default:
+      break
+    }
+//    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HourlyCell.reuseId, for: indexPath) as! HourlyCell
+//    return cell
     //    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HourlyCell.reuseId, for: indexPath) as? HourlyCell else { return UICollectionViewCell() }
     //    let auf = collectionView.cell
     //    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! UICollectionViewCell
     //    cell.backgroundColor = .black
-    //    return UICollectionViewCell()
+        return UICollectionViewCell()
   }
   
   func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -71,7 +82,15 @@ extension CollectionView: UICollectionViewDataSource {
 
 extension CollectionView: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    return CGSize(width: UIScreen.main.bounds.width, height: 120)
+    switch indexPath.section {
+    case 0:
+      return CGSize(width: UIScreen.main.bounds.width, height: 120)
+    case 1:
+      return CGSize(width: UIScreen.main.bounds.width - 32, height: UIScreen.main.bounds.height * 0.75)
+    default :
+      break
+    }
+    return CGSize(width: 0, height: 0)
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
