@@ -9,8 +9,10 @@ import UIKit
 
 class HomeViewController: UIViewController {
   
+  // MARK: - UIComponents
+  
   private lazy var homeCustomNavBar = HomeCustomNavBar()
-  let headerView = HomeTableHeaderView()
+  private lazy var headerView = HomeHeaderView()
   private lazy var collectionView: CollectionView = {
     let layout = UICollectionViewFlowLayout()
     layout.scrollDirection = .vertical
@@ -35,7 +37,7 @@ class HomeViewController: UIViewController {
   }
   
   
-  // MARK: - Private Methods
+  // MARK: - Setup Views
   
   private func setupViews() {
     view.backgroundColor = .white
@@ -49,14 +51,14 @@ class HomeViewController: UIViewController {
     collectionView.translatesAutoresizingMaskIntoConstraints = false
     
     let headerViewConstraints = [
-      headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-      headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-      headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-      headerView.heightAnchor.constraint(equalToConstant: 242)
+      headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 24),
+      headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+      headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+      headerView.heightAnchor.constraint(equalToConstant: 218)
     ]
     
     let collectionViewConstraints = [
-      collectionView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 10),
+      collectionView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 34),
       collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
       collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
       collectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
@@ -65,6 +67,8 @@ class HomeViewController: UIViewController {
     NSLayoutConstraint.activate(headerViewConstraints)
     NSLayoutConstraint.activate(collectionViewConstraints)
   }
+  
+  // MARK: - Private Methods
   
   private func configureNavigationbar() {
     navigationItem.titleView = homeCustomNavBar

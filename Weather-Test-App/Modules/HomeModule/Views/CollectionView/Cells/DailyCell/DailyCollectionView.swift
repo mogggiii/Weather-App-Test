@@ -10,6 +10,8 @@ import UIKit
 
 class DailyCollectionView: UICollectionView {
   
+  // MARK: - Init
+  
   override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
     super.init(frame: frame, collectionViewLayout: layout)
     
@@ -20,6 +22,8 @@ class DailyCollectionView: UICollectionView {
     fatalError("init(coder:) has not been implemented")
   }
   
+  // MARK: - Setup Views
+  
   private func setupViews() {
     backgroundColor = .clear
     allowsSelection = false
@@ -29,6 +33,8 @@ class DailyCollectionView: UICollectionView {
     register(DailyCollectionViewCell.self, forCellWithReuseIdentifier: DailyCollectionViewCell.reuseId)
   }
 }
+
+// MARK: - UICollectionViewDataSource & UICollectionViewDelegateFlowLayout
 
 extension DailyCollectionView: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

@@ -9,6 +9,8 @@ import UIKit
 
 class HourlyCollectionView: UICollectionView {
   
+  // MARK: - Init
+  
   override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
     super.init(frame: frame, collectionViewLayout: layout)
     
@@ -19,6 +21,8 @@ class HourlyCollectionView: UICollectionView {
     fatalError("init(coder:) has not been implemented")
   }
   
+  // MARK: - Setup Views
+  
   private func setupViews() {
     backgroundColor = .clear
     isScrollEnabled = true
@@ -27,6 +31,8 @@ class HourlyCollectionView: UICollectionView {
     register(HourlyCollectionViewCell.self, forCellWithReuseIdentifier: HourlyCollectionViewCell.reuseId)
   }
 }
+
+// MARK: - UICollectionViewDataSource & UICollectionViewDelegateFlowLayout
 
 extension HourlyCollectionView: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

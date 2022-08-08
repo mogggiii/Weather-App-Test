@@ -9,12 +9,14 @@ import UIKit
 
 class DailyCollectionViewCell: UICollectionViewCell {
   
+  /// reuse id
   static let reuseId = "dailyCell"
+  
+  // MARK: - UI Components
   
   private let weatherImageView: UIImageView = {
     let imageView = UIImageView()
-    let image = UIImage(named: "Group 21")
-    let newImage = image?.resizeImage(image: image!, newWidth: 60)
+    let newImage = UIImage.resizeImage(image: UIImage(named: "Group 21") ?? UIImage(), newWidth: 60)
     imageView.translatesAutoresizingMaskIntoConstraints = false
     imageView.image = newImage
     imageView.contentMode = .center
@@ -50,6 +52,8 @@ class DailyCollectionViewCell: UICollectionViewCell {
     return label
   }()
   
+  // MARK: - Init
+  
   override init(frame: CGRect) {
     super.init(frame: frame)
     
@@ -59,7 +63,11 @@ class DailyCollectionViewCell: UICollectionViewCell {
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+}
+
+// MARK: - Setup Views
+
+extension DailyCollectionViewCell {
   private func setupViews() {
     layer.cornerRadius = 12
     layer.masksToBounds = true
@@ -90,12 +98,7 @@ class DailyCollectionViewCell: UICollectionViewCell {
   }
   
   private func setupWeatherInfoConstraints() {
-    let stackView = UIStackView(arrangedSubviews: [dayLabel, weatherStateLabel])
-    stackView.axis = .vertical
-    stackView.spacing = 4
-    stackView.distribution = .fillEqually
-    stackView.translatesAutoresizingMaskIntoConstraints = false
-    
+    let stackView = UIStackView.generateStackView(arrangeSubviews: [dayLabel, weatherStateLabel], spacing: 4, axis: .vertical, distribution: .fillEqually)
     addSubview(stackView)
     
     let stackViewConstraints = [
@@ -106,20 +109,4 @@ class DailyCollectionViewCell: UICollectionViewCell {
     
     NSLayoutConstraint.activate(stackViewConstraints)
   }
-}
-
-extension UIImage {
-  func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage? {
-    
-    let scale = newWidth / image.size.width
-    let newHeight = image.size.height * scale
-    UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
-    image.draw(in: CGRect(x: 0, y: 6, width: newWidth, height: newHeight))
-    
-    let newImage = UIGraphicsGetImageFromCurrentImageContext()
-    UIGraphicsEndImageContext()
-    
-    return newImage
-  }
-  
 }

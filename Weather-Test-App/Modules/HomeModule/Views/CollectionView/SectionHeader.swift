@@ -10,8 +10,10 @@ import UIKit
 
 class SectionHeader: UICollectionReusableView {
   
+  /// reuse id
   static let reuseId = "headerId"
   
+  // MARK: - UIComponents
   var header: UILabel = {
     let label: UILabel = UILabel()
     label.textColor = .black
@@ -20,6 +22,8 @@ class SectionHeader: UICollectionReusableView {
     label.sizeToFit()
     return label
   }()
+  
+  // MARK: - Init
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -30,7 +34,11 @@ class SectionHeader: UICollectionReusableView {
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+}
+
+// MARK: - Setup Views
+
+extension SectionHeader {
   private func setupViews() {
     addSubview(header)
     setupConstraints()

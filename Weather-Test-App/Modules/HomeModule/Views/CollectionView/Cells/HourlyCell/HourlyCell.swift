@@ -10,8 +10,10 @@ import UIKit
 
 class HourlyCell: UICollectionViewCell {
   
+  /// reuse id
   static let reuseId = "hourlyCollectionCell"
   
+  // MARK: - CollectionView
   lazy var hourlyCollectionView: HourlyCollectionView = {
     let layout = UICollectionViewFlowLayout()
     layout.scrollDirection = .horizontal
@@ -22,6 +24,8 @@ class HourlyCell: UICollectionViewCell {
     return view
   }()
   
+  // MARK: - Init
+  
   override init(frame: CGRect) {
     super.init(frame: frame)
     
@@ -31,7 +35,11 @@ class HourlyCell: UICollectionViewCell {
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+}
+
+// MARK: - Setup Views
+
+extension HourlyCell {
   private func setupView() {
     backgroundColor = .clear
     addSubview(hourlyCollectionView)

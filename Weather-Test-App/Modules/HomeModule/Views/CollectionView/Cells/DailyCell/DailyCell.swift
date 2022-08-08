@@ -10,7 +10,10 @@ import UIKit
 
 class DailyCell: UICollectionViewCell {
   
+  /// reuse id
   static let reuseId = "dailyCollectionCell"
+  
+  // MARK: - Collectrion View
   
   lazy var dailyCollectionView: DailyCollectionView = {
     let layout = UICollectionViewFlowLayout()
@@ -22,6 +25,8 @@ class DailyCell: UICollectionViewCell {
     return view
   }()
   
+  // MARK: - Init
+  
   override init(frame: CGRect) {
     super.init(frame: frame)
     
@@ -31,7 +36,11 @@ class DailyCell: UICollectionViewCell {
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+}
+
+// MARK: - Setup Views
+
+extension DailyCell {
   private func setupView() {
     backgroundColor = .clear
     addSubview(dailyCollectionView)

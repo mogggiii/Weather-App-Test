@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E10A33F828A0DAD8003B0343 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10A33F728A0DAD8003B0343 /* UIImage+Extension.swift */; };
+		E10A33FA28A0E0A3003B0343 /* UIStackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10A33F928A0E0A3003B0343 /* UIStackView+Extension.swift */; };
 		E1129B57289E3E1700246013 /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1129B56289E3E1700246013 /* CollectionView.swift */; };
 		E1129B5A289E42E700246013 /* HourlyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1129B59289E42E700246013 /* HourlyCollectionViewCell.swift */; };
 		E1129B5C289E48EA00246013 /* HourlyCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1129B5B289E48EA00246013 /* HourlyCollectionView.swift */; };
@@ -15,7 +17,7 @@
 		E118EB78289D11DD00B1F5BF /* HomeConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E118EB77289D11DD00B1F5BF /* HomeConfigurator.swift */; };
 		E118EB7A289D128400B1F5BF /* HomeProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = E118EB79289D128400B1F5BF /* HomeProtocols.swift */; };
 		E118EB7C289D140C00B1F5BF /* HomeCustomNavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E118EB7B289D140C00B1F5BF /* HomeCustomNavBar.swift */; };
-		E118EB7E289D2EEB00B1F5BF /* HomeTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E118EB7D289D2EEA00B1F5BF /* HomeTableHeaderView.swift */; };
+		E118EB7E289D2EEB00B1F5BF /* HomeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E118EB7D289D2EEA00B1F5BF /* HomeHeaderView.swift */; };
 		E1236B22289D06EE006865E7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1236B21289D06EE006865E7 /* AppDelegate.swift */; };
 		E1236B24289D06EE006865E7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1236B23289D06EE006865E7 /* SceneDelegate.swift */; };
 		E1236B26289D06EE006865E7 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1236B25289D06EE006865E7 /* HomeViewController.swift */; };
@@ -27,9 +29,13 @@
 		E1D9DB4F289E7650003DD603 /* SectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D9DB4E289E7650003DD603 /* SectionHeader.swift */; };
 		E1E4CEDA289FFC3600CC612A /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E4CED9289FFC3600CC612A /* HomePresenter.swift */; };
 		E1E4CEDC289FFC5200CC612A /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E4CEDB289FFC5200CC612A /* HomeRouter.swift */; };
+		E1E4CEE428A0079000CC612A /* DetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E4CEE328A0079000CC612A /* DetailHeaderView.swift */; };
+		E1E4CEE628A00BBB00CC612A /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E4CEE528A00BBA00CC612A /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E10A33F728A0DAD8003B0343 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		E10A33F928A0E0A3003B0343 /* UIStackView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extension.swift"; sourceTree = "<group>"; };
 		E1129B56289E3E1700246013 /* CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
 		E1129B59289E42E700246013 /* HourlyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyCollectionViewCell.swift; sourceTree = "<group>"; };
 		E1129B5B289E48EA00246013 /* HourlyCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourlyCollectionView.swift; sourceTree = "<group>"; };
@@ -38,7 +44,7 @@
 		E118EB77289D11DD00B1F5BF /* HomeConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeConfigurator.swift; sourceTree = "<group>"; };
 		E118EB79289D128400B1F5BF /* HomeProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeProtocols.swift; sourceTree = "<group>"; };
 		E118EB7B289D140C00B1F5BF /* HomeCustomNavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCustomNavBar.swift; sourceTree = "<group>"; };
-		E118EB7D289D2EEA00B1F5BF /* HomeTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableHeaderView.swift; sourceTree = "<group>"; };
+		E118EB7D289D2EEA00B1F5BF /* HomeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeHeaderView.swift; sourceTree = "<group>"; };
 		E1236B1E289D06EE006865E7 /* Weather-Test-App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Weather-Test-App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1236B21289D06EE006865E7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1236B23289D06EE006865E7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -52,6 +58,8 @@
 		E1D9DB4E289E7650003DD603 /* SectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
 		E1E4CED9289FFC3600CC612A /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
 		E1E4CEDB289FFC5200CC612A /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
+		E1E4CEE328A0079000CC612A /* DetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailHeaderView.swift; sourceTree = "<group>"; };
+		E1E4CEE528A00BBA00CC612A /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +73,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E10A33F628A0DAA0003B0343 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E10A33F728A0DAD8003B0343 /* UIImage+Extension.swift */,
+				E10A33F928A0E0A3003B0343 /* UIStackView+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		E1129B53289E370500246013 /* NavigationBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -76,7 +93,7 @@
 		E1129B54289E375C00246013 /* HeaderView */ = {
 			isa = PBXGroup;
 			children = (
-				E118EB7D289D2EEA00B1F5BF /* HomeTableHeaderView.swift */,
+				E118EB7D289D2EEA00B1F5BF /* HomeHeaderView.swift */,
 			);
 			path = HeaderView;
 			sourceTree = "<group>";
@@ -103,6 +120,7 @@
 		E118EB73289D0F8A00B1F5BF /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				E1E4CEDF28A0019B00CC612A /* DetailModule */,
 				E118EB74289D0F9500B1F5BF /* HomeModule */,
 			);
 			path = Modules;
@@ -141,6 +159,7 @@
 		E1236B20289D06EE006865E7 /* Weather-Test-App */ = {
 			isa = PBXGroup;
 			children = (
+				E10A33F628A0DAA0003B0343 /* Extensions */,
 				E118EB73289D0F8A00B1F5BF /* Modules */,
 				E1236B21289D06EE006865E7 /* AppDelegate.swift */,
 				E1236B23289D06EE006865E7 /* SceneDelegate.swift */,
@@ -179,6 +198,31 @@
 				E1B66208289F8CA30094A268 /* DailyCell.swift */,
 			);
 			path = DailyCell;
+			sourceTree = "<group>";
+		};
+		E1E4CEDF28A0019B00CC612A /* DetailModule */ = {
+			isa = PBXGroup;
+			children = (
+				E1E4CEE028A0076200CC612A /* Views */,
+				E1E4CEE528A00BBA00CC612A /* DetailViewController.swift */,
+			);
+			path = DetailModule;
+			sourceTree = "<group>";
+		};
+		E1E4CEE028A0076200CC612A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E1E4CEE128A0076C00CC612A /* HeaderView */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E1E4CEE128A0076C00CC612A /* HeaderView */ = {
+			isa = PBXGroup;
+			children = (
+				E1E4CEE328A0079000CC612A /* DetailHeaderView.swift */,
+			);
+			path = HeaderView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -254,21 +298,25 @@
 				E1129B57289E3E1700246013 /* CollectionView.swift in Sources */,
 				E1236B26289D06EE006865E7 /* HomeViewController.swift in Sources */,
 				E1129B5C289E48EA00246013 /* HourlyCollectionView.swift in Sources */,
-				E118EB7E289D2EEB00B1F5BF /* HomeTableHeaderView.swift in Sources */,
+				E118EB7E289D2EEB00B1F5BF /* HomeHeaderView.swift in Sources */,
 				E1236B22289D06EE006865E7 /* AppDelegate.swift in Sources */,
 				E1236B24289D06EE006865E7 /* SceneDelegate.swift in Sources */,
 				E1129B5E289E4B7000246013 /* HourlyCell.swift in Sources */,
+				E1E4CEE628A00BBB00CC612A /* DetailViewController.swift in Sources */,
 				E1E4CEDC289FFC5200CC612A /* HomeRouter.swift in Sources */,
 				E1B66205289F87110094A268 /* DailyCollectionViewCell.swift in Sources */,
+				E1E4CEE428A0079000CC612A /* DetailHeaderView.swift in Sources */,
 				E118EB7C289D140C00B1F5BF /* HomeCustomNavBar.swift in Sources */,
 				E118EB76289D103B00B1F5BF /* HomeInteractor.swift in Sources */,
 				E118EB7A289D128400B1F5BF /* HomeProtocols.swift in Sources */,
 				E1E4CEDA289FFC3600CC612A /* HomePresenter.swift in Sources */,
+				E10A33F828A0DAD8003B0343 /* UIImage+Extension.swift in Sources */,
 				E1B66207289F8BEF0094A268 /* DailyCollectionView.swift in Sources */,
 				E118EB78289D11DD00B1F5BF /* HomeConfigurator.swift in Sources */,
 				E1B66209289F8CA30094A268 /* DailyCell.swift in Sources */,
 				E1129B5A289E42E700246013 /* HourlyCollectionViewCell.swift in Sources */,
 				E1D9DB4F289E7650003DD603 /* SectionHeader.swift in Sources */,
+				E10A33FA28A0E0A3003B0343 /* UIStackView+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

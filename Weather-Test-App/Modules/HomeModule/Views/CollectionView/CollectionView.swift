@@ -10,17 +10,27 @@ import UIKit
 
 class CollectionView: UICollectionView {
   
+  // MARK: - Init
   override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
     super.init(frame: frame, collectionViewLayout: layout)
-    
-    dataSource = self
-    delegate = self
-    
-    registerCells()
+  
+    setupViews()
   }
   
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
+  }
+}
+
+// MARK: - Setup Views
+
+extension CollectionView {
+  private func setupViews() {
+    dataSource = self
+    delegate = self
+    backgroundColor = .clear
+    
+    registerCells()
   }
   
   private func registerCells() {
@@ -28,9 +38,9 @@ class CollectionView: UICollectionView {
     register(DailyCell.self, forCellWithReuseIdentifier: DailyCell.reuseId)
     register(SectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: SectionHeader.reuseId)
   }
-  
 }
 
+// MARK: - UICollectionViewDataSource & UICollectionViewDelegateFlowLayout
 extension CollectionView: UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return 1
@@ -47,13 +57,8 @@ extension CollectionView: UICollectionViewDataSource {
     default:
       break
     }
-//    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HourlyCell.reuseId, for: indexPath) as! HourlyCell
-//    return cell
-    //    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HourlyCell.reuseId, for: indexPath) as? HourlyCell else { return UICollectionViewCell() }
-    //    let auf = collectionView.cell
-    //    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! UICollectionViewCell
-    //    cell.backgroundColor = .black
-        return UICollectionViewCell()
+
+    return UICollectionViewCell()
   }
   
   func numberOfSections(in collectionView: UICollectionView) -> Int {
