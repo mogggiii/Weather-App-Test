@@ -18,10 +18,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
     guard let scene = (scene as? UIWindowScene) else { return }
     let window = UIWindow(windowScene: scene)
-//    window.rootViewController = UINavigationController(rootViewController: HomeViewController())
-    window.rootViewController = UINavigationController(rootViewController: DetailViewController())
+    let checkFirstStart = checkFirstStart()
+    window.rootViewController = UINavigationController(rootViewController: checkFirstStart)
     window.makeKeyAndVisible()
     self.window = window
+  }
+  
+  func checkFirstStart() -> UIViewController {
+    if UserDefaults.standard.value(forKey: "firstStart") == nil {
+      return StartViewController()
+    } else {
+      return WeatherViewController()
+    }
   }
   
   func sceneDidDisconnect(_ scene: UIScene) {
