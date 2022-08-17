@@ -13,7 +13,7 @@ protocol SavedLocationBusinessLogic {
 }
 
 class SavedLocationInteractor: SavedLocationBusinessLogic {
-
+  
   var presenter: SavedLocationPresentationLogic?
   var service: SavedLocationService?
   private let realmManager = RealmManager()
@@ -34,8 +34,17 @@ class SavedLocationInteractor: SavedLocationBusinessLogic {
       locationData.longitude = location.longitude
       
       self.realmManager.saveLocationData(locationData)
+    case .deleteLocation(location: let location):
+      let locationData = Location()
+      locationData.cityName = location.cityName
+      locationData.latitude = location.latitude
+      locationData.longitude = location.longitude
+      
+      self.realmManager.deleteFavLocation(location: locationData)
+    case .deleteAllData:
+      self.realmManager.deleteAllData()
     }
-  
+    
   }
   
 }

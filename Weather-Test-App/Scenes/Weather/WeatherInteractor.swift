@@ -25,9 +25,6 @@ class WeatherInteractor: WeatherBusinessLogic {
       service = WeatherService()
     }
     switch request {
-    case .retriveCurrentLocationWeather:
-//      currentLocationWeather()
-      print(1)
     case .retriveWeather:
       fetchWeather()
     }
@@ -46,6 +43,8 @@ class WeatherInteractor: WeatherBusinessLogic {
     location.latitude = latitude
     location.longitude = longitude
     
+    /// - #Case 1: When location information is changed in searchModule,
+    /// - In this case, location information exists but no weather information.
     guard let _ = localData?.weatherData,
           let weatherResponse = realmManager.fetchWeatherResponse()
     else {
@@ -53,6 +52,9 @@ class WeatherInteractor: WeatherBusinessLogic {
       return
     }
     
+    /// - #Case 2: All Local Data Exsits but if the API was fetched 3 hours ago,
+    /// - local Realm data will be used,
+    /// - otherwise, we fetch the API newly.
     if let lastUpdateDate = localData?.lastUpdateDate {
       self.fetchedAPI180MinutesAgo(from: lastUpdateDate) ? fetchWeatherData(by: location) : presenter?.presentData(response: .handleResult(response: weatherResponse, city: location.cityName ?? ""))
     }
@@ -64,14 +66,14 @@ class WeatherInteractor: WeatherBusinessLogic {
   }
   
   private func fetchWeatherData(by location: Location) {
-    service?.fetchCurrentWeather(latitude: location.latitude, longitude: location.longitude) { result in
+    service?.fetchCurrentWeather(latitude: location.latitude, longitude: location.longitude) { [weak self] result in
       switch result {
       case .success(let response):
-        self.realmManager.saveLocalWeatherData(weather: response, location: location)
-        guard let data = self.realmManager.fetchWeatherResponse() else { return }
-        self.presenter?.presentData(response: .handleResult(response: data, city: location.cityName ?? ""))
+        self?.realmManager.saveLocalWeatherData(weather: response, location: location)
+        guard let data = self?.realmManager.fetchWeatherResponse() else { return }
+        self?.presenter?.presentData(response: .handleResult(response: data, city: location.cityName ?? ""))
       case .failure(let error):
-        self.presenter?.presentData(response: .handleError(error: error))
+        self?.presenter?.presentData(response: .handleError(error: error))
       }
     }
   }

@@ -19,12 +19,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     guard let scene = (scene as? UIWindowScene) else { return }
     let window = UIWindow(windowScene: scene)
     let checkFirstStart = checkFirstStart()
-    window.rootViewController = UINavigationController(rootViewController: checkFirstStart)
+    let navigationController = NavigationController(rootViewController: checkFirstStart)
+    window.rootViewController = navigationController
     window.makeKeyAndVisible()
     self.window = window
   }
   
-  func checkFirstStart() -> UIViewController {
+  private func checkFirstStart() -> UIViewController {
     if UserDefaults.standard.value(forKey: "firstStart") == nil {
       return StartViewController()
     } else {

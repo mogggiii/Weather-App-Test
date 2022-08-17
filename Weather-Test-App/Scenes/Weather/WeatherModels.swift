@@ -13,7 +13,6 @@ enum Weather {
   enum Model {
     struct Request {
       enum RequestType {
-        case retriveCurrentLocationWeather
         case retriveWeather
       }
     }

@@ -14,7 +14,7 @@ protocol WeatherRoutingLogic {
 }
 
 class WeatherRouter: NSObject, WeatherRoutingLogic {
-
+  
   weak var viewController: WeatherViewController?
   
   func pushToSearchViewController() {
@@ -24,9 +24,9 @@ class WeatherRouter: NSObject, WeatherRoutingLogic {
   }
   
   func presentSaveLocationController() {
-    let savedLocationController = SavedLocationViewController()
-    savedLocationController.modalPresentationStyle = .fullScreen
-    viewController?.present(savedLocationController, animated: true)
+    let navController = NavigationController(rootViewController: SavedLocationViewController())
+    navController.modalPresentationStyle = .fullScreen
+    viewController?.present(navController, animated: true)
   }
   
 }

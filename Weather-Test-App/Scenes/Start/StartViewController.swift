@@ -19,16 +19,16 @@ class StartViewController: UIViewController {
     let label = UILabel()
     label.text = "Hello!"
     label.font = .systemFont(ofSize: 25, weight: .bold)
-    label.textColor = .black
+    label.textColor = .white
     label.translatesAutoresizingMaskIntoConstraints = false
     return label
   }()
   
   private let descriptionLabel: UILabel = {
     let label = UILabel()
-    label.text = "Приложение предоставляет точный прогноз и погодные предупреждения где бы вы ни были. Пожалуйста, дайте разрешение на использование Службы геолокации."
+    label.text = "The app provides an accurate forecast. Please give permission to use the Geolocation Service."
     label.font = .systemFont(ofSize: 17, weight: .regular)
-    label.textColor = .black
+    label.textColor = .white
     label.numberOfLines = 0
     label.translatesAutoresizingMaskIntoConstraints = false
     return label
@@ -37,11 +37,16 @@ class StartViewController: UIViewController {
   private let continueButton: UIButton = {
     let button = UIButton()
     button.setTitle("Continue", for: .normal)
-    button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
+    button.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
     button.translatesAutoresizingMaskIntoConstraints = false
+    button.backgroundColor = .white
+    button.setTitleColor(.black, for: .normal)
+    button.layer.cornerRadius = 12
     button.addTarget(self, action: #selector(continueButtonTapped), for: .touchUpInside)
     return button
   }()
+  
+  // MARK: - VC Lifecycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -56,18 +61,18 @@ class StartViewController: UIViewController {
     setupGradientBackground()
   }
   
+  override var preferredStatusBarStyle: UIStatusBarStyle {
+    return .lightContent
+  }
+  
+  // MARK: - Setup Views
+  
   private func setupViews() {
     view.addSubview(continueButton)
     view.addSubview(descriptionLabel)
     view.addSubview(greetingLabel)
     
     setupConstraints()
-  }
-  
-  @objc private func continueButtonTapped() {
-    let homeController = WeatherViewController()
-    navigationController?.pushViewController(homeController, animated: true)
-    navigationController?.viewControllers = [homeController]
   }
   
   private func setupConstraints() {
@@ -85,7 +90,7 @@ class StartViewController: UIViewController {
     ]
     
     let descriptionLabelConstraints = [
-      descriptionLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+      descriptionLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -50),
       descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
       descriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
     ]
@@ -99,13 +104,13 @@ class StartViewController: UIViewController {
     let backgroundGradient = CAGradientLayer()
     let startColor = UIColor(red: 79 / 255, green: 127 / 255, blue: 250 / 255, alpha: 1)
     let endColor = UIColor(red: 51 / 255, green: 95 / 255, blue: 209 / 255, alpha: 1)
-
+    
     backgroundGradient.frame = view.bounds
     backgroundGradient.colors = [startColor.cgColor, endColor.cgColor]
-
+    
     backgroundGradient.startPoint = CGPoint(x: 0.0, y: 1.0)
     backgroundGradient.endPoint = CGPoint(x: 1.0, y: 1.0)
-
+    
     view.layer.insertSublayer(backgroundGradient, at: 0)
   }
   
@@ -115,7 +120,17 @@ class StartViewController: UIViewController {
     locationManager.requestWhenInUseAuthorization()
     locationManager.startUpdatingLocation()
   }
+  
+  // MARK: - Objc private methods
+  
+  @objc private func continueButtonTapped() {
+    let homeController = WeatherViewController()
+    navigationController?.pushViewController(homeController, animated: true)
+    navigationController?.viewControllers = [homeController]
+  }
 }
+
+// MARK: - CLLocationManagerDelegate
 
 extension StartViewController: CLLocationManagerDelegate {
   func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -135,12 +150,6 @@ extension StartViewController: CLLocationManagerDelegate {
           return
         }
         let city = placemark.locality ?? ""
-//        let locationData = Location()
-//        locationData.cityName = city
-//        locationData.latitude = location.coordinate.latitude
-//        locationData.longitude = location.coordinate.longitude
-//
-//        self.realmManager.saveCurrentLocation(locationData)
         let locationData = Location()
         locationData.cityName = city
         locationData.latitude = location.coordinate.latitude

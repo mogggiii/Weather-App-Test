@@ -10,12 +10,14 @@ import UIKit
 import RealmSwift
 
 enum SavedLocation {
-   
+  
   enum Model {
     struct Request {
       enum RequestType {
         case retriveSavedLocation
         case retriveWeatherByLocation(location: SavedLocationViewModel)
+        case deleteLocation(location: SavedLocationViewModel)
+        case deleteAllData
       }
     }
     struct Response {

@@ -25,7 +25,7 @@ class RealmManager: NSObject {
     guard let savedWeather = realmObject.objects(SavedWeather.self).first else { return nil }
     return savedWeather
   }
-
+  
   func fetchWeatherResponse() -> WeatherResponse? {
     let realmObject = try! Realm()
     guard let savedWeather = realmObject.objects(SavedWeather.self).first,
@@ -38,7 +38,6 @@ class RealmManager: NSObject {
   func deleteLocalWeatherData() {
     let realmObject = try! Realm()
     let localWeather = realmObject.objects(SavedWeather.self)
-    
     try! realmObject.write {
       realmObject.delete(localWeather)
     }
@@ -54,17 +53,16 @@ class RealmManager: NSObject {
     localWeatherModel.latitude = location.latitude
     localWeatherModel.lastUpdateDate = Date()
     localWeatherModel.weatherData = self.encode(weather)
-    print("View will appear saved", localWeatherModel)
     
     self.save(localWeatherModel)
   }
   
-  func deleteCurrentLocation () {
+  func deleteFavLocation(location: Location) {
     let realmObject = try! Realm()
-    let localWeather = realmObject.objects(Location.self)
+    let locationData = realmObject.objects(Location.self)
     
     try! realmObject.write {
-      realmObject.delete(localWeather)
+      realmObject.delete(locationData.filter("cityName=%@", location.cityName!))
     }
   }
   
@@ -82,10 +80,18 @@ class RealmManager: NSObject {
     self.save(location)
   }
   
+  func deleteAllData() {
+    let realmObject = try! Realm()
+    let locations = realmObject.objects(Location.self)
+    
+    try! realmObject.write {
+      realmObject.delete(locations)
+    }
+  }
+  
   func getDocumentsDirectory() -> URL {
     let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
     let documentsDirectory = paths[0]
-    print(documentsDirectory)
     return documentsDirectory
   }
 }
@@ -93,6 +99,7 @@ class RealmManager: NSObject {
 extension RealmManager {
   private func save(_ object: Object) {
     let realmObject = try! Realm()
+    
     try! realmObject.write {
       realmObject.add(object)
     }
@@ -121,16 +128,3 @@ extension RealmManager {
   }
 }
 
-
-
-
-//@objc dynamic var weatherId: String?
-//@objc dynamic var locationName: String?
-//@objc dynamic var latitude: Double = 0
-//@objc dynamic var longitude: Double = 0
-//@objc dynamic var lastUpdateDate: Date?
-//@objc dynamic var weatherData: Data?
-//
-//override class func primaryKey() -> String? {
-//  return "weatherId"
-//}

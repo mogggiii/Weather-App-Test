@@ -12,7 +12,7 @@ protocol WeatherDisplayLogic: AnyObject {
   func displayData(viewModel: Weather.Model.ViewModel.ViewModelData)
 }
 
-class WeatherViewController: UIViewController, WeatherDisplayLogic {
+class WeatherViewController: ViewController, WeatherDisplayLogic {
   
   var interactor: WeatherBusinessLogic?
   var router: (NSObjectProtocol & WeatherRoutingLogic)?
@@ -72,6 +72,10 @@ class WeatherViewController: UIViewController, WeatherDisplayLogic {
     headerView.setupGradientBackground()
   }
   
+  override var preferredStatusBarStyle: UIStatusBarStyle {
+    return .darkContent
+  }
+  
   func displayData(viewModel: Weather.Model.ViewModel.ViewModelData) {
     switch viewModel {
       
@@ -117,15 +121,14 @@ class WeatherViewController: UIViewController, WeatherDisplayLogic {
       let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
       alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
       alertView = alert
-
+      
       present(alert, animated: animated, completion: nil)
-//      print(1)
     }
     
     reloadCollectionView()
   }
   
-  private func setupViews() {
+  override func setupViews() {
     view.backgroundColor = .white
     view.addSubview(headerView)
     view.addSubview(collectionView)
@@ -134,7 +137,7 @@ class WeatherViewController: UIViewController, WeatherDisplayLogic {
   
   // MARK: - Private Methods
   
-  private func setupConstraints() {
+  override func setupConstraints() {
     headerView.translatesAutoresizingMaskIntoConstraints = false
     collectionView.translatesAutoresizingMaskIntoConstraints = false
     
@@ -162,10 +165,15 @@ class WeatherViewController: UIViewController, WeatherDisplayLogic {
     }
   }
   
+  // MARK: - Navigation bar buttons
+  
   private func configureNavigationBar() {
+    navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
     navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "location")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(locationButtonPressed))
     navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "search")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(searchButtonPressed))
   }
+  
+  // MARK: - Navigation Actions
   
   @objc private func locationButtonPressed() {
     self.router?.presentSaveLocationController()

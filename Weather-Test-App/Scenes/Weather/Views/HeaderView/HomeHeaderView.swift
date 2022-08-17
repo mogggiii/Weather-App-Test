@@ -9,8 +9,6 @@ import UIKit
 
 class HomeHeaderView: UIView {
   
-  var currentWeatherCardTap: (() -> ())?
-  
   // MARK: - UIComponents
   
   let currentDateLabel: UILabel = {
@@ -19,19 +17,10 @@ class HomeHeaderView: UIView {
     label.font = .systemFont(ofSize: 14, weight: .regular)
     label.textColor = .white
     label.text = "Senin, 20 Desember 2021"
+    label.textAlignment = .left
     return label
   }()
-  
-  let currentTimeLabel: UILabel = {
-    let label = UILabel()
-    label.translatesAutoresizingMaskIntoConstraints = false
-    label.font = .systemFont(ofSize: 14, weight: .regular)
-    label.textColor = .white
-    label.textAlignment = .right
-    label.text = "3.30 PM"
-    return label
-  }()
-  
+    
   let feelsLikeLabel: UILabel = {
     let label = UILabel()
     label.translatesAutoresizingMaskIntoConstraints = false
@@ -59,7 +48,7 @@ class HomeHeaderView: UIView {
     return label
   }()
   
-  let weatherImageView: UIImageView = {
+  let weatherIconImageView: UIImageView = {
     let imageView = UIImageView()
     imageView.contentMode = .center
     imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -94,12 +83,6 @@ class HomeHeaderView: UIView {
     
     self.layer.insertSublayer(backgroundGradient, at: 0)
   }
-  
-  @objc private func currentWeatherCardDidTap() {
-    if let currentWeatherCardTap = currentWeatherCardTap {
-      currentWeatherCardTap()
-    }
-  }
 }
 
 // MARK: - Setup Views
@@ -113,26 +96,21 @@ extension HomeHeaderView {
     self.layer.shadowRadius = 12
     self.layer.shadowOpacity = 0.4
     
-    self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(currentWeatherCardDidTap)))
-    
     addSubview(feelsLikeLabel)
-    addSubview(weatherImageView)
-    
-//    setupWeatherIconConstraints()
-    setupCurrentTimeLabelsConstraints()
+    addSubview(weatherIconImageView)
+    addSubview(currentDateLabel)
+
+    setupCurrentDateLabelConstraints()
   }
   
-  private func setupCurrentTimeLabelsConstraints() {
-    let stackView = UIStackView.generateStackView(arrangeSubviews: [currentDateLabel, currentTimeLabel], spacing: nil, axis: .horizontal, distribution: .fillProportionally)
-    addSubview(stackView)
-    
-    let stackViewConstraints = [
-      stackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 24),
-      stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
-      stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
+  private func setupCurrentDateLabelConstraints() {
+    let currentDateLabelConstraints = [
+      currentDateLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 24),
+      currentDateLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
+      currentDateLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
     ]
     
-    NSLayoutConstraint.activate(stackViewConstraints)
+    NSLayoutConstraint.activate(currentDateLabelConstraints)
     
     setupFeelsLikeLabelConstraints()
   }
@@ -148,13 +126,14 @@ extension HomeHeaderView {
   
   private func setupWeatherIconConstraints() {
     let weatherImageViewConstraints = [
-      weatherImageView.topAnchor.constraint(equalTo: currentDateLabel.bottomAnchor, constant: 24),
-      weatherImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
-      weatherImageView.heightAnchor.constraint(equalToConstant: 64),
-      weatherImageView.widthAnchor.constraint(equalToConstant: 64),
+      weatherIconImageView.topAnchor.constraint(equalTo: currentDateLabel.bottomAnchor, constant: 24),
+      weatherIconImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
+      weatherIconImageView.heightAnchor.constraint(equalToConstant: 64),
+      weatherIconImageView.widthAnchor.constraint(equalToConstant: 64),
     ]
     
     NSLayoutConstraint.activate(weatherImageViewConstraints)
+    
     setupCurrentWeatherConstraints()
   }
   
@@ -164,12 +143,14 @@ extension HomeHeaderView {
     
     let stackViewContraints = [
       stackView.topAnchor.constraint(equalTo: currentDateLabel.bottomAnchor, constant: 30),
-      stackView.leadingAnchor.constraint(equalTo: weatherImageView.trailingAnchor, constant: 24),
+      stackView.leadingAnchor.constraint(equalTo: weatherIconImageView.trailingAnchor, constant: 24),
     ]
     
     NSLayoutConstraint.activate(stackViewContraints)
   }
 }
+
+// MARK: - Configure View
 
 extension HomeHeaderView {
   func configureView(viewModel: [WeatherViewModel], cityName: String) {
@@ -178,7 +159,7 @@ extension HomeHeaderView {
     currentTempLabel.text = recentData.temp
     currentDateLabel.text = "\(recentData.day), \(recentData.dateWithMonth)"
     weatherDescriptionLabel.text = recentData.description
-    weatherImageView.image = resizebleImage
+    weatherIconImageView.image = resizebleImage
     feelsLikeLabel.text = "Feels like \(recentData.feelsLike)"
     
     setupWeatherIconConstraints()

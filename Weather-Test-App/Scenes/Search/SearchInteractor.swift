@@ -35,13 +35,14 @@ class SearchInteractor: NSObject, SearchBusinessLogic {
       }
       
       searchCompleter.queryFragment = query
-    case .saveSelectedLocation(indexPath: let indexPath):
+      
+    case .saveSelectedLocation(indexPath: let indexPath, isFavLocation: let isFavLocation):
       let selectedResult = searchResults[indexPath.row]
       let searchRequest = MKLocalSearch.Request(completion: selectedResult)
       let search = MKLocalSearch(request: searchRequest)
       
       // find the location name, latitude and, longitude
-      search.start { (response, error) in
+      search.start { [weak self] (response, error) in
         guard error == nil else { return }
         guard let placeMark = response?.mapItems[0].placemark else { return }
         guard let locationName = placeMark.name else { return }
@@ -51,15 +52,20 @@ class SearchInteractor: NSObject, SearchBusinessLogic {
         location.latitude = placeMark.coordinate.latitude
         location.longitude = placeMark.coordinate.longitude
         
-        // Save location
-        self.realmManager.saveLocation(location)
-        // Delete All local data and Save Only Location Data (No Weather Data)
-        self.realmManager.saveLocationData(location)
+        if isFavLocation {
+          // Save location
+          self?.realmManager.saveLocation(location)
+        } else {
+          // Delete All local data and Save Only Location Data (No Weather Data)
+          self?.realmManager.saveLocationData(location)
+        }
       }
     }
   }
   
 }
+
+// MARK: - MKLocalSearchCompleterDelegate
 
 extension SearchInteractor: MKLocalSearchCompleterDelegate {
   func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
@@ -75,6 +81,7 @@ extension SearchInteractor: MKLocalSearchCompleterDelegate {
       presenter?.presentData(response: .presentTitles(titles: titlesArray))
     }
   }
+  
   func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
     print("Cancel")
   }

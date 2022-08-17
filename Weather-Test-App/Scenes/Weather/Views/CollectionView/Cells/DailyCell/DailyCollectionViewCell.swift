@@ -29,22 +29,27 @@ class DailyCollectionViewCell: UICollectionViewCell {
     label.translatesAutoresizingMaskIntoConstraints = false
     label.font = .systemFont(ofSize: 14, weight: .semibold)
     label.textColor = .black
-    label.text = "Sreda"
     return label
   }()
   
-  private let tempLabel: UILabel = {
+  private let tempMaxLabel: UILabel = {
     let label = UILabel()
     label.translatesAutoresizingMaskIntoConstraints = false
     label.font = .systemFont(ofSize: 14, weight: .semibold)
     label.textColor = .black
-    label.text = "17º C"
     return label
   }()
   
-  private let weatherStateLabel: UILabel = {
+  private let tempMinLabel: UILabel = {
     let label = UILabel()
-    label.text = "Sunny"
+    label.translatesAutoresizingMaskIntoConstraints = false
+    label.font = .systemFont(ofSize: 14, weight: .semibold)
+    label.textColor = .gray
+    return label
+  }()
+  
+  private let descriptionLabel: UILabel = {
+    let label = UILabel()
     label.font = .systemFont(ofSize: 13, weight: .regular)
     label.textColor = UIColor(red: 73 / 255, green: 67 / 255, blue: 67 / 255, alpha: 1)
     return label
@@ -71,12 +76,14 @@ extension DailyCollectionViewCell {
     layer.masksToBounds = true
     backgroundColor = UIColor(red: 210 / 255, green: 223 / 255, blue: 255 / 255, alpha: 1)
     addSubview(weatherImageView)
-    addSubview(tempLabel)
     
     setupConstraints()
   }
   
   private func setupConstraints() {
+    let stackView = UIStackView.generateStackView(arrangeSubviews: [tempMaxLabel, tempMinLabel], spacing: 8, axis: .horizontal, distribution: .fill)
+    addSubview(stackView)
+    
     let weatherImageViewConstraints = [
       weatherImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
       weatherImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
@@ -84,19 +91,19 @@ extension DailyCollectionViewCell {
       weatherImageView.widthAnchor.constraint(equalToConstant: 50),
     ]
     
-    let tempLabelConstraints = [
-      tempLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-      tempLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24)
+    let tempLabelsConstraints = [
+      stackView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+      stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24)
     ]
     
     NSLayoutConstraint.activate(weatherImageViewConstraints)
-    NSLayoutConstraint.activate(tempLabelConstraints)
+    NSLayoutConstraint.activate(tempLabelsConstraints)
     
     setupWeatherInfoConstraints()
   }
   
   private func setupWeatherInfoConstraints() {
-    let stackView = UIStackView.generateStackView(arrangeSubviews: [dayLabel, weatherStateLabel], spacing: 4, axis: .vertical, distribution: .fillEqually)
+    let stackView = UIStackView.generateStackView(arrangeSubviews: [dayLabel, descriptionLabel], spacing: 4, axis: .vertical, distribution: .fillEqually)
     addSubview(stackView)
     
     let stackViewConstraints = [
@@ -109,11 +116,15 @@ extension DailyCollectionViewCell {
   }
 }
 
+// MARK: - Configure Cell
+
 extension DailyCollectionViewCell {
   func configureCell(viewModel: [WeatherDailyViewModel], item: Int) {
     let newImage = UIImage.resizeImage(image: UIImage(named: viewModel[item].conditionImage) ?? UIImage(), newWidth: 45)
     self.dayLabel.text = viewModel[item].day
+    self.descriptionLabel.text = viewModel[item].description
     self.weatherImageView.image = newImage
-    self.tempLabel.text = viewModel[item].tempMax
+    self.tempMaxLabel.text = viewModel[item].tempMax
+    self.tempMinLabel.text = viewModel[item].tempMin
   }
 }

@@ -45,6 +45,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // will automatically perform the migration
     let _ = try! Realm()
     
+    UINavigationBar.appearance().tintColor = UIColor(red: 46 / 255, green: 58 / 255, blue: 89 / 255, alpha: 1)
+    UINavigationBar.appearance().barTintColor = UIColor.white
+    UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+    
     return true
   }
   

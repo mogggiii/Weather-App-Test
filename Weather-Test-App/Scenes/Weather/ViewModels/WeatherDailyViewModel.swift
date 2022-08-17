@@ -13,23 +13,17 @@ struct WeatherDailyViewModel {
   let day: String
   let tempMin: String
   let tempMax: String
+  let description: String
   let conditionImage: String
-  
-  init(tempMin: String, tempMax: String, conditionImage: String, day: String, date: Double) {
-    self.date = date
-    self.day = day
-    self.tempMin = tempMin
-    self.tempMax = tempMax
-    self.conditionImage = conditionImage
-  }
   
   static func getViewModel(with weatherViewModel: [WeatherViewModel]) -> [WeatherDailyViewModel] {
     var dailyViewModelArray = [WeatherDailyViewModel]()
-  
+    
     let temporaryDailyDictionary = Dictionary(grouping: weatherViewModel, by: { $0.dateWithMonth })
-    // temporaryDailyDictionary -> ["17/08": [WeatherViewModel], 18/08: [WeatherViewModel] ..]
+    // temporaryDailyDictionary -> ["d/MM": [WeatherViewModel], "d/MM": [WeatherViewModel] ..]
     
     temporaryDailyDictionary.forEach { key, value in
+      // find highest temperature using min.
       let tempMax = value.max { $0.tempMaxInt < $1.tempMaxInt }
       // find lowest temperature using min.
       let tempMin = value.min { $0.tempMinInt < $1.tempMinInt }
@@ -38,15 +32,17 @@ struct WeatherDailyViewModel {
       for i in 0...value.count - 1 {
         let date = value[i].date
         let day = value[i].day
-        dailyViewModelArray.append(WeatherDailyViewModel.init(tempMin: tempMin.tempMin, tempMax: tempMax.tempMax, conditionImage: tempMax.conditionImage, day: day, date: date))
+        let description = value[i].description
+        dailyViewModelArray.append(WeatherDailyViewModel.init(date: date, day: day, tempMin: tempMin.tempMin, tempMax: tempMax.tempMax, description: description, conditionImage: tempMax.conditionImage))
       }
     }
     
+    // remove repetitive elements
     let uniqueArray = dailyViewModelArray.unique(for: \.day)
     
     return uniqueArray.sorted { $0.date < $1.date }
   }
 }
 
-  
+
 

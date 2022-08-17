@@ -9,13 +9,13 @@
 import UIKit
 
 enum Search {
-   
+  
   enum Model {
     struct Request {
       enum RequestType {
         case deliveryDelegate
         case textDidChange(query: String)
-        case saveSelectedLocation(indexPath: IndexPath)
+        case saveSelectedLocation(indexPath: IndexPath, isFavLocation: Bool)
       }
     }
     struct Response {

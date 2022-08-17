@@ -12,7 +12,7 @@ protocol SearchDisplayLogic: AnyObject {
   func displayData(viewModel: Search.Model.ViewModel.ViewModelData)
 }
 
-class SearchViewController: UIViewController, SearchDisplayLogic {
+class SearchViewController: ViewController, SearchDisplayLogic {
   
   private var titles = [String]()
   
@@ -22,6 +22,10 @@ class SearchViewController: UIViewController, SearchDisplayLogic {
     let searchBar = UISearchBar()
     searchBar.placeholder = "Enter city"
     searchBar.translatesAutoresizingMaskIntoConstraints = false
+    searchBar.barTintColor = .white
+    searchBar.searchTextField.backgroundColor = UIColor.black.withAlphaComponent(0.1)
+    searchBar.searchTextField.leftView?.tintColor = .gray
+    searchBar.searchTextField.textColor = .black
     return searchBar
   }()
   
@@ -96,20 +100,23 @@ class SearchViewController: UIViewController, SearchDisplayLogic {
     }
   }
   
-  private func setupViews() {
+  // MARK: - Setup Views
+  
+  override func setupViews() {
     searchBar.delegate = self
     tableView.delegate = self
     tableView.dataSource = self
     
-    tableView.register(UITableViewCell.self, forCellReuseIdentifier: "searchCell")
+    tableView.register(SearchTableViewCell.self, forCellReuseIdentifier: SearchTableViewCell.reuseId)
     
     view.addSubview(searchBar)
     view.addSubview(tableView)
     
     setupConstraints()
+    navigationBarConfigure()
   }
   
-  private func setupConstraints() {
+  override func setupConstraints() {
     let searchBarConstraints = [
       searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
       searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -127,24 +134,55 @@ class SearchViewController: UIViewController, SearchDisplayLogic {
     NSLayoutConstraint.activate(searchBarConstraints)
     NSLayoutConstraint.activate(tableViewConstraints)
   }
+  
+  private func navigationBarConfigure() {
+    let backButton = UIBarButtonItem()
+    backButton.title = "Back"
+    self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
+  }
 }
+
+// MARK: - UITableViewDataSource, UITableViewDelegate
 
 extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return titles.count
   }
   
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    return 60
+  }
+  
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: "searchCell", for: indexPath)
-    cell.textLabel?.text = titles[indexPath.row]
+    let backgroundView = UIView()
+    backgroundView.backgroundColor = UIColor.black.withAlphaComponent(0.1)
+    
+    let cell = tableView.dequeueReusableCell(withIdentifier: SearchTableViewCell.reuseId, for: indexPath) as! SearchTableViewCell
+    cell.configureWith(titles[indexPath.row])
+    cell.selectedBackgroundView = backgroundView
+    
     return cell
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    interactor?.makeRequest(request: .saveSelectedLocation(indexPath: indexPath))
+    interactor?.makeRequest(request: .saveSelectedLocation(indexPath: indexPath, isFavLocation: false))
     router?.popToRootViewController()
   }
+  
+  func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    let saveAction = UIContextualAction(style: .normal, title: "Save Place") { [weak self] action, view, handler in
+      self?.interactor?.makeRequest(request: .saveSelectedLocation(indexPath: indexPath, isFavLocation: true))
+      handler(true)
+    }
+    
+    saveAction.backgroundColor = .systemGreen
+    
+    let configurator = UISwipeActionsConfiguration(actions: [saveAction])
+    return configurator
+  }
 }
+
+// MARK: - UISearchBarDelegate
 
 extension SearchViewController: UISearchBarDelegate {
   func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

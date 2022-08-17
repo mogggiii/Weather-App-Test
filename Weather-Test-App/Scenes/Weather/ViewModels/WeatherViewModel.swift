@@ -45,26 +45,6 @@ struct WeatherViewModel {
     }
   }
   
-//  init(dt_txt: String, dateWithMonth: String, hour: String, day: String, temp: String, tempOriginal: String, temp_min: String, temp_max: String, description: String, conditionId: Int, temp_min_int: Int, temp_max_int: Int, feelslike: String, humidity: String, pressure: String, windSpeed: String, visibility: String) {
-//    self.date = dt_txt
-//    self.dateWithMonth = dateWithMonth
-//    self.hour = hour
-//    self.day = day
-//    self.temp = temp
-//    self.tempOriginal = tempOriginal
-//    self.tempMinInt = temp_min_int
-//    self.tempMaxInt = temp_max_int
-//    self.tempMin = temp_min
-//    self.tempMax = temp_max
-//    self.description = description
-//    self.conditionId = conditionId
-//    self.feelslike = feelslike
-//    self.humidity = humidity
-//    self.pressure = pressure
-//    self.windSpeed = windSpeed
-//    self.visibility = visibility
-//  }
-  
   static func getViewModels(with weatherResponse: WeatherResponse) -> [WeatherViewModel] {
     return weatherResponse.list.map { getViewModel(eachWeather: $0, response: weatherResponse) }
   }
@@ -72,7 +52,6 @@ struct WeatherViewModel {
   static func getViewModel(eachWeather: WeatherListResponse, response: WeatherResponse) -> WeatherViewModel {
     let date = eachWeather.dt
     let timeZone = response.city.timezone
-//    let date = Date.getddMMYYYYFormat(timestamp: eachWeather.dtTxt, timeZone: timeZone)
     let dateWithMonth = Date.getddMMFormat(timestamp: eachWeather.dtTxt, timeZone: timeZone)
     let hour = Date.getHHFormat(timestamp: eachWeather.dtTxt, timeZone: timeZone)
     let day = Date.getWeekDay(timestamp: eachWeather.dtTxt, timeZone: timeZone)
@@ -95,29 +74,24 @@ struct WeatherViewModel {
       conditionId = weather.id
     }
     
-    return WeatherViewModel.init(date: date, dateWithMonth: dateWithMonth, hour: hour, day: day, temp: temp, tempOriginal: tempOriginal, tempMinInt: tempMinInt, tempMaxInt: tempMaxInt, tempMin: tempMin, tempMax: tempMax, feelsLike: feelsLike, description: description, humidity: humidity, pressure: pressure, windSpeed: windSpeed, visibility: visibility, conditionId: conditionId)
-    //dt_txt: date, dateWithMonth: dateWithMonth, hour: hour, day: day
-//    return WeatherViewModel(timeZone: temp: temp, tempOriginal: tempOriginal, temp_min: temp_min, temp_max: temp_max, description: description, conditionId: conditionId, temp_min_int: temp_min_int, temp_max_int: temp_max_int, feelslike: feelslike, humidity: humidity, pressure: pressure, windSpeed: windSpeed, visibility: visibility)
+    return WeatherViewModel.init(
+      date: date,
+      dateWithMonth: dateWithMonth,
+      hour: hour, day: day,
+      temp: temp,
+      tempOriginal: tempOriginal,
+      tempMinInt: tempMinInt,
+      tempMaxInt: tempMaxInt,
+      tempMin: tempMin,
+      tempMax: tempMax,
+      feelsLike: feelsLike,
+      description: description,
+      humidity: humidity,
+      pressure: pressure,
+      windSpeed: windSpeed,
+      visibility: visibility,
+      conditionId: conditionId
+    )
   }
 }
 
-extension Double {
-  
-  // kelvin to celsius
-  //    func makeCelsius() -> String {
-  //        let argue = self - 273.15
-  //        return String(format: "%.0f", arguments: [argue])
-  //    }
-  
-  // kelvin to fahrenheit
-  func makeFahrenheit() -> String {
-    let argue = (self * 9/5) - 459.67
-    return String(format: "%.0f", arguments: [argue])
-  }
-  
-  // rounding double to 2 decimal place
-  func makeRound() -> Double {
-    return (self * 100).rounded() / 100
-  }
-  
-}
