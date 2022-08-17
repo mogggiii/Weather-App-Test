@@ -15,9 +15,10 @@
 * Realm Database
 * Swift Package Manager
 
-5 day weather forecast.
-Detailed information about the weather in the city since of the app for the next 24 hours.
-If the API was fetched 3 hours ago, local Realm data will be used, otherwise, we fetch the API newly.
+1. 5 day weather forecast.
+2. Detailed information about the weather in the city since of the app for the next 24 hours.
+3. Save a location to favorites.
+4. If the API was fetched 3 hours ago, local Realm data will be used, otherwise, we fetch the API newly.
 
 
 ### Installation
