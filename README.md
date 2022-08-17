@@ -11,9 +11,9 @@
 </p>
 
 ### Description
-*Clean Architecture 
-*Realm Database
-*Swift Package Manager
+* Clean Architecture 
+* Realm Database
+* Swift Package Manager
 
 5 day weather forecast.
 Detailed information about the weather in the city since of the app for the next 24 hours.
